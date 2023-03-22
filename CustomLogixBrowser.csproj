@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomColorPicker</RootNamespace>
-    <AssemblyName>CustomColorPicker</AssemblyName>
+    <RootNamespace>CustomLogixBrowser</RootNamespace>
+    <AssemblyName>CustomLogixBrowser</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -36,23 +36,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVRBetaBuilds\NeosStandalone\app\nml_libs\0Harmony.dll</HintPath>
+      <HintPath>..\..\Apps\Neos\app\nml_libs\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BaseX">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVRBetaBuilds\NeosStandalone\app\Neos_Data\Managed\BaseX.dll</HintPath>
+      <HintPath>..\..\Apps\Neos\app\BaseX.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="FrooxEngine">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVRBetaBuilds\NeosStandalone\app\Neos_Data\Managed\FrooxEngine.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\NeosVR\Neos_Data\Managed\FrooxEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NeosModLoader">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVR\Libraries\NeosModLoader.dll</HintPath>
+      <HintPath>..\..\Apps\Neos\app\Libraries\NeosModLoader.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SpecialItemsLib">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVRBetaBuilds\2021.10.30.605\nml_mods\SpecialItemsLib.dll</HintPath>
+      <HintPath>..\..\Apps\Neos\app\nml_mods\SpecialItemsLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomColorPicker.cs" />
+    <Compile Include="CustomLogixBrowser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,8 +69,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /y /d  $(TargetFileName) D:\Apps\Neos\app\nml_mods</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
