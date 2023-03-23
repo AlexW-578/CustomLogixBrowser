@@ -11,7 +11,7 @@ namespace CustomLogixBrowser{
 	public class CustomLogixBrowser : NeosMod {
 		public override string Name => "CustomLogixBrowser";
 		public override string Author => "AlexW-578";
-		public override string Version => "0.0.1";
+		public override string Version => "1.0.0";
 		public override string Link => "https://github.com/AlexW-578/CustomLogixBrowser";
 
 		private static ModConfiguration Config;
@@ -34,7 +34,6 @@ namespace CustomLogixBrowser{
 			static void Postfix(Slot slot, HashSet<string> tags) {
 				if (slot.GetComponent<LogixNodeSelector>() != null) {
 					tags.Add(LOGIX_BROWSER_TAG);
-					Warn("AlexW-578: Adding Logix Browser Tag");
 				}
 			}
 		}
