@@ -6,7 +6,7 @@ To use, save a logix browser to your inventory and then 'favorite' it by clickin
 
 <b>This mod collides with the [CustomiseLogixBrowser](https://github.com/LeCloutPanda/Customise/tree/main/CustomiseLogixBrowser) mod by LeCloutPanda.</b>
 
-I'm hoping to fix this at some point. Temp Fix is disable the disable the CustomiseLogixBrowser mod
+I'm hoping to fix this at some point. Temp Fix is to disable the CustomiseLogixBrowser mod
 
 Currently does not close when opening new logix browser but im working on an update to add an option to enable this
 
