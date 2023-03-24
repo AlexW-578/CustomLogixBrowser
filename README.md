@@ -8,6 +8,8 @@ To use, save a logix browser to your inventory and then 'favorite' it by clickin
 
 I'm hoping to fix this at some point. Temp Fix is disable the disable the CustomiseLogixBrowser mod
 
+Currently does not close when opening new logix browser but im working on an update to add an option to enable this
+
 ## Example
 None yet but one on the way
 
