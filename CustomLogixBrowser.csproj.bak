@@ -64,7 +64,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d  $(TargetFileName) A:\SteamLibrary\steamapps\common\NeosVR\nml_mods</PostBuildEvent>
+    <PostBuildEvent>xcopy /y /d  $(TargetFileName) D:\Apps\Neos\app\nml_mods</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
