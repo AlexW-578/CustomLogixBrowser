@@ -1,6 +1,6 @@
 # CustomProtofluxBrowser
-A [ResonitModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that allows you to use a custom protoflux browser instead of the default one.<br>
-To use, save a protoflux browser to your inventory and then 'favorite' it by clicking on it then the purple heart.<br>
+A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that allows you to use a custom protoflux browser instead of the default one.<br>
+To use, save a protoflux browser to your inventory and then 'favorite' it<br>
 
 <b>This mod requires [SpecialItemsLib](https://github.com/art0007i/SpecialItemsLib) to work</b>
 
