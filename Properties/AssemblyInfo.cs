@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CustomLogixBrowser")]
+[assembly: AssemblyTitle("CustomProtofluxBrowser")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("AlexW-578")]
-[assembly: AssemblyProduct("CustomLogixBrowser")]
+[assembly: AssemblyProduct("CustomProtofluxBrowser")]
 [assembly: AssemblyCopyright("Copyright © AlexW-578 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
