@@ -19,6 +19,8 @@ namespace CustomProtofluxBrowser
         private static ModConfiguration Config;
 
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("enabled", "Enables the mod", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("user scale", "Adjust browser scale to user scale", () => false);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size, or scale relative to the user when user scale is on", () => 0.5f);
 
         private static string PROTOFLUX_BROWSER_TAG
         {
@@ -65,13 +67,20 @@ namespace CustomProtofluxBrowser
 
 
                 Slot slot = __instance.LocalUserSpace.AddSlot("NodeMenu");
-                slot.StartTask(async delegate()
+                slot.StartTask(async delegate ()
                 {
                     await slot.LoadObjectAsync(protofluxBrowserObject.Uri);
                     InventoryItem component = slot.GetComponent<InventoryItem>();
                     Slot slot_two = ((component != null) ? component.Unpack() : null) ?? slot;
                     slot_two.PositionInFrontOfUser(float3.Backward);
-                    slot_two.LocalScale =  float3.One * 0.5f;
+                    if (Config.GetValue(UserScale))
+                    {
+                        slot_two.LocalScale = slot_two.World.LocalUser.Root.Slot.LocalScale * Config.GetValue(Scale);
+                    }
+                    else
+                    {
+                        slot_two.LocalScale = float3.One * Config.GetValue(Scale);
+                    }
                 });
 
 
