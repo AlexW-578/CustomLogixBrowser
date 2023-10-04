@@ -18,9 +18,9 @@ namespace CustomProtofluxBrowser
 
         private static ModConfiguration Config;
 
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("enabled", "Enables the mod", () => true);
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("user scale", "Adjust browser scale to user scale", () => false);
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size, or scale relative to the user when user scale is on", () => 0.5f);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 0.5f);
 
         private static string PROTOFLUX_BROWSER_TAG
         {
@@ -75,11 +75,11 @@ namespace CustomProtofluxBrowser
                     slot_two.PositionInFrontOfUser(float3.Backward);
                     if (Config.GetValue(UserScale))
                     {
-                        slot_two.LocalScale = slot_two.World.LocalUser.Root.Slot.LocalScale * Config.GetValue(Scale);
+                        slot_two.GlobalScale = slot_two.World.LocalUser.Root.Slot.GlobalScale * Config.GetValue(Scale);
                     }
                     else
                     {
-                        slot_two.LocalScale = float3.One * Config.GetValue(Scale);
+                        slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
                 });
 
