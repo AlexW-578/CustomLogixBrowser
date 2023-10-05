@@ -13,7 +13,7 @@ namespace CustomProtofluxBrowser
     {
         public override string Name => "CustomProtofluxBrowser";
         public override string Author => "AlexW-578";
-        public override string Version => "2.0.0";
+        public override string Version => "2.0.1";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
         private static ModConfiguration Config;
