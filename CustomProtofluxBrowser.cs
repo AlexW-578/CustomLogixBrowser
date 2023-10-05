@@ -13,12 +13,14 @@ namespace CustomProtofluxBrowser
     {
         public override string Name => "CustomProtofluxBrowser";
         public override string Author => "AlexW-578";
-        public override string Version => "2.0.1";
+        public override string Version => "2.0.2";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
         private static ModConfiguration Config;
 
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("enabled", "Enables the mod", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CustomTagEnabled = new ModConfigurationKey<bool>("Custom_Tag_Enabled", "Use a Custom Tag rather than the Component Browser Component", () => false);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<string> CustomTag = new ModConfigurationKey<string>("Custom_Tag", "Custom Tag to use", () => "Custom ProtoFlux Browser");
 
         private static string PROTOFLUX_BROWSER_TAG
         {
@@ -41,7 +43,11 @@ namespace CustomProtofluxBrowser
         {
             static void Postfix(Slot slot, HashSet<string> tags)
             {
-                if (slot.GetComponent<ComponentSelector>() != null)
+                if (Config.GetValue(CustomTagEnabled) && slot.Tag == Config.GetValue(CustomTag))
+                {
+                    tags.Add(PROTOFLUX_BROWSER_TAG);
+                }
+                else if (!Config.GetValue(CustomTagEnabled) && slot.GetComponent<ComponentSelector>() != null)
                 {
                     tags.Add(PROTOFLUX_BROWSER_TAG);
                 }
