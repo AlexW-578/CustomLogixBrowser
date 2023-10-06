@@ -20,7 +20,7 @@ namespace CustomProtofluxBrowser
 
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 0.5f);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 1f);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CustomTagEnabled = new ModConfigurationKey<bool>("Custom_Tag_Enabled", "Use a Custom Tag rather than the Component Browser Component", () => false);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<string> CustomTag = new ModConfigurationKey<string>("Custom_Tag", "Custom Tag to use", () => "Custom ProtoFlux Browser");
 
@@ -70,8 +70,7 @@ namespace CustomProtofluxBrowser
                 {
                     return true;
                 }
-
-
+                
                 Slot slot = __instance.LocalUserSpace.AddSlot("NodeMenu");
                 slot.StartTask(async delegate ()
                 {
@@ -88,8 +87,7 @@ namespace CustomProtofluxBrowser
                         slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
                 });
-
-
+                
                 __instance.ActiveHandler?.CloseContextMenu();
                 return false;
             }
