@@ -5,7 +5,9 @@ To use, save a protoflux browser to your inventory and then 'favorite' it<br>
 <b>This mod requires [SpecialItemsLib](https://github.com/art0007i/SpecialItemsLib) to work</b>
 
 ## Example
-Link to Folder containing some custom browsers: `resrec:///U-AlexW578/R-1A443BEFD14226E18C5EAD234D8F5C5B1BB01990D7F32DF1B6336550BD3FD3F3`
+Link to Folder containing some custom browsers: 
+
+`resrec:///U-AlexW578/R-1A443BEFD14226E18C5EAD234D8F5C5B1BB01990D7F32DF1B6336550BD3FD3F3`
 
 If you would like your browser in the folder send a message/issue.
 
