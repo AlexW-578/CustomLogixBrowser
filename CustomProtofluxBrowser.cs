@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
@@ -40,16 +41,21 @@ namespace CustomProtofluxBrowser
             harmony.PatchAll();
         }
 
-        [HarmonyPatch(typeof(SlotHelper), "GenerateTags", new Type[] { typeof(Slot), typeof(HashSet<string>) })]
+        [HarmonyPatch(typeof(SlotHelper), nameof(SlotHelper.GenerateTags), new Type[] { typeof(Slot), typeof(HashSet<string>) })]
         class SlotHelper_GenerateTags_Patch
         {
+            static MethodInfo NodeTypeSelectedMethod = AccessTools.Method(typeof(ProtoFluxTool), "OnNodeTypeSelected");
+
             static void Postfix(Slot slot, HashSet<string> tags)
             {
-                if (Config.GetValue(CustomTagEnabled) && slot.Tag == Config.GetValue(CustomTag))
+                if (Config.GetValue(CustomTagEnabled))
                 {
-                    tags.Add(PROTOFLUX_BROWSER_TAG);
+                    if (slot.Tag == Config.GetValue(CustomTag)) tags.Add(PROTOFLUX_BROWSER_TAG);
+                    return;
                 }
-                else if (!Config.GetValue(CustomTagEnabled) && slot.GetComponent<ComponentSelector>() != null)
+
+                var comp = slot.GetComponent<ComponentSelector>();
+                if (comp != null && comp.ComponentSelected.Target?.Method == NodeTypeSelectedMethod)
                 {
                     tags.Add(PROTOFLUX_BROWSER_TAG);
                 }
@@ -61,16 +67,10 @@ namespace CustomProtofluxBrowser
         {
             static bool Prefix(ProtoFluxTool __instance)
             {
-                if (!Config.GetValue(Enabled))
-                {
-                    return true;
-                }
+                if (!Config.GetValue(Enabled)) return true;
 
-                if (protofluxBrowserObject.Uri == null)
-                {
-                    return true;
-                }
-                
+                if (protofluxBrowserObject.Uri == null) return true;
+
                 Slot slot = __instance.LocalUserSpace.AddSlot("NodeMenu");
                 slot.StartTask(async delegate ()
                 {
@@ -87,7 +87,7 @@ namespace CustomProtofluxBrowser
                         slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
                 });
-                
+
                 __instance.ActiveHandler?.CloseContextMenu();
                 return false;
             }
