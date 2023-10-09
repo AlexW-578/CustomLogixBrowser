@@ -9,7 +9,7 @@ Link to Folder containing some custom browsers:
 
 `resrec:///U-AlexW578/R-1A443BEFD14226E18C5EAD234D8F5C5B1BB01990D7F32DF1B6336550BD3FD3F3`
 
-`resdb:///d4573a54d40473fc85497549e513f47f4d2ed7f2798f8121dc34cd5bfc5c0e97.brson` - ProtoFlux Browser 'Neos' Edition (by Unknown - if you know who made this please message me)
+`resdb:///d4573a54d40473fc85497549e513f47f4d2ed7f2798f8121dc34cd5bfc5c0e97.brson` - ProtoFlux Browser 'Neos' Edition (by Nuka)
 
 If you would like your browser in the folder send a message/issue.
 
