@@ -54,22 +54,6 @@ namespace CustomProtofluxBrowser
                 }
             }
         }
-        [HarmonyPatch]
-        static class ProtoFluxTool_ReversePatch
-        {
-            [HarmonyReversePatch]
-            [HarmonyPatch(typeof(ProtoFluxTool), "OnNodeTypeSelected")]
-            [SyncMethod(typeof(ComponentSelectionHandler), new string[] { })]
-            public static void OnNodeTypeSelected(ComponentSelector selector, Type type) => throw new NotImplementedException("Harmony stub");
-            [HarmonyReversePatch]
-            [HarmonyPatch(typeof(ProtoFluxTool), "IsNodeComponent")]
-            [SyncMethod(typeof(Predicate<Type>), new string[] { })]
-            public static bool IsNodeComponent(Type type) => throw new NotImplementedException("Harmony stub");
-            [HarmonyReversePatch]
-            [HarmonyPatch(typeof(ProtoFluxTool), "PrefillGenericArgument")]
-            [SyncMethod(typeof(GenericArgumentPrefiller), new string[] { })]
-            public static string PrefillGenericArgument(Type genericType, Type argument) => throw new NotImplementedException("Harmony stub");
-        }   
 
         [HarmonyPatch(typeof(ProtoFluxTool), "OpenNodeBrowser")]
         class ResoniteProtofluxBrowser_Patch
@@ -107,9 +91,6 @@ namespace CustomProtofluxBrowser
 
                             componentSelector.SetupUI("ProtoFlux.UI.NodeBrowser.Title".AsLocaleKey(), ComponentSelector.DEFAULT_SIZE);
                             componentSelector.BuildUI(ProtoFluxHelper.PROTOFLUX_ROOT, doNotGenerateBack: true);
-                            //componentSelector.ComponentSelected.Target = new ComponentSelectionHandler(ProtoFluxTool_ReversePatch.OnNodeTypeSelected);
-                            //componentSelector.ComponentFilter.Target = new Predicate<Type>(ProtoFluxTool_ReversePatch.IsNodeComponent);
-                            //componentSelector.GenericArgumentPrefiller.Target = new GenericArgumentPrefiller(ProtoFluxTool_ReversePatch.PrefillGenericArgument);
                             var currentSelecter = slot_two.GetComponentInChildren<ComponentSelector>();
                             componentSelector.ComponentSelected.Target = currentSelecter.ComponentSelected.Target;
                             componentSelector.ComponentFilter.Target = currentSelecter.ComponentFilter.Target;
