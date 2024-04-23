@@ -7,14 +7,15 @@ using FrooxEngine.ProtoFlux;
 using HarmonyLib;
 using ResoniteModLoader;
 using SpecialItemsLib;
+using static OfficialAssets.Graphics.Badges.MMC;
 
 namespace CustomProtofluxBrowser
 {
     public class CustomProtofluxBrowser : ResoniteMod
     {
         public override string Name => "CustomProtofluxBrowser";
-        public override string Author => "AlexW-578";
-        public override string Version => "2.1.1";
+        public override string Author => "AlexW-578 & Sinduy";
+        public override string Version => "2.1.2";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
         private static ModConfiguration Config;
@@ -22,6 +23,7 @@ namespace CustomProtofluxBrowser
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 1f);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CharryPick = new ModConfigurationKey<bool>("CherryPick", "Enable CherryPick compatibility", () => true);
         private static string PROTOFLUX_BROWSER_TAG
         {
             get { return "custom_protoflux_browser"; }
@@ -52,6 +54,22 @@ namespace CustomProtofluxBrowser
                 }
             }
         }
+        [HarmonyPatch]
+        static class ProtoFluxTool_ReversePatch
+        {
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(ProtoFluxTool), "OnNodeTypeSelected")]
+            [SyncMethod(typeof(ComponentSelectionHandler), new string[] { })]
+            public static void OnNodeTypeSelected(ComponentSelector selector, Type type) => throw new NotImplementedException("Harmony stub");
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(ProtoFluxTool), "IsNodeComponent")]
+            [SyncMethod(typeof(Predicate<Type>), new string[] { })]
+            public static bool IsNodeComponent(Type type) => throw new NotImplementedException("Harmony stub");
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(ProtoFluxTool), "PrefillGenericArgument")]
+            [SyncMethod(typeof(GenericArgumentPrefiller), new string[] { })]
+            public static string PrefillGenericArgument(Type genericType, Type argument) => throw new NotImplementedException("Harmony stub");
+        }   
 
         [HarmonyPatch(typeof(ProtoFluxTool), "OpenNodeBrowser")]
         class ResoniteProtofluxBrowser_Patch
@@ -77,11 +95,47 @@ namespace CustomProtofluxBrowser
                     {
                         slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
+                    if (Config.GetValue(CharryPick) && Harmony.HasAnyPatches("net.Cyro.CherryPick"))
+                    {
+                        try
+                        {
+                            var prsSlot = slot_two.FindChild("Cherry Node Browser - Parent");
+                            var cherrySlot = prsSlot != null ? prsSlot.AddSlot("Cherry Node Browser") : 
+                                slot_two.AddSlot("Cherry Node Browser - Parent").AddSlot("Cherry Node Browser");
+
+                            ComponentSelector componentSelector = cherrySlot.AttachComponent<ComponentSelector>();
+
+                            componentSelector.SetupUI("ProtoFlux.UI.NodeBrowser.Title".AsLocaleKey(), ComponentSelector.DEFAULT_SIZE);
+                            componentSelector.BuildUI(ProtoFluxHelper.PROTOFLUX_ROOT, doNotGenerateBack: true);
+                            componentSelector.ComponentSelected.Target = new ComponentSelectionHandler(ProtoFluxTool_ReversePatch.OnNodeTypeSelected);
+                            componentSelector.ComponentFilter.Target = new Predicate<Type>(ProtoFluxTool_ReversePatch.IsNodeComponent);
+                            componentSelector.GenericArgumentPrefiller.Target = new GenericArgumentPrefiller(ProtoFluxTool_ReversePatch.PrefillGenericArgument);
+
+                            cherrySlot.PersistentSelf = false;
+                            List<Grabbable> components = new List<Grabbable>();
+                            cherrySlot.GetComponents(components);
+                            foreach (Grabbable grabbable in components)
+                            {
+                                grabbable.Enabled = false;
+                            }
+                            if(cherrySlot.GetComponent<Grabbable>() == null)
+                            {
+                                cherrySlot.AttachComponent<Grabbable>();
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug("CherryPick compatibility failed: ");
+                            UniLog.Error(e.ToString());
+                        }
+                    }
                 });
 
                 __instance.ActiveHandler?.CloseContextMenu();
                 return false;
             }
+
         }
     }
 }

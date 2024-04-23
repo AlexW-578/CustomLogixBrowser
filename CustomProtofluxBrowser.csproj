@@ -58,6 +58,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ValueTuple" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomProtofluxBrowser.cs" />
@@ -71,5 +72,4 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "$(GamePath)rml_mods\"</PostBuildEvent>
   </PropertyGroup>
-
 </Project>
