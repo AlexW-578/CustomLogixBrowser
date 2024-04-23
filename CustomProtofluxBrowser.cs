@@ -107,9 +107,13 @@ namespace CustomProtofluxBrowser
 
                             componentSelector.SetupUI("ProtoFlux.UI.NodeBrowser.Title".AsLocaleKey(), ComponentSelector.DEFAULT_SIZE);
                             componentSelector.BuildUI(ProtoFluxHelper.PROTOFLUX_ROOT, doNotGenerateBack: true);
-                            componentSelector.ComponentSelected.Target = new ComponentSelectionHandler(ProtoFluxTool_ReversePatch.OnNodeTypeSelected);
-                            componentSelector.ComponentFilter.Target = new Predicate<Type>(ProtoFluxTool_ReversePatch.IsNodeComponent);
-                            componentSelector.GenericArgumentPrefiller.Target = new GenericArgumentPrefiller(ProtoFluxTool_ReversePatch.PrefillGenericArgument);
+                            //componentSelector.ComponentSelected.Target = new ComponentSelectionHandler(ProtoFluxTool_ReversePatch.OnNodeTypeSelected);
+                            //componentSelector.ComponentFilter.Target = new Predicate<Type>(ProtoFluxTool_ReversePatch.IsNodeComponent);
+                            //componentSelector.GenericArgumentPrefiller.Target = new GenericArgumentPrefiller(ProtoFluxTool_ReversePatch.PrefillGenericArgument);
+                            var currentSelecter = slot_two.GetComponentInChildren<ComponentSelector>();
+                            componentSelector.ComponentSelected.Target = currentSelecter.ComponentSelected.Target;
+                            componentSelector.ComponentFilter.Target = currentSelecter.ComponentFilter.Target;
+                            componentSelector.GenericArgumentPrefiller.Target = currentSelecter.GenericArgumentPrefiller.Target;
 
                             cherrySlot.PersistentSelf = false;
                             List<Grabbable> components = new List<Grabbable>();
