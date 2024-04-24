@@ -86,12 +86,11 @@ namespace CustomProtofluxBrowser
                             var prsSlot = slot_two.FindChild("Cherry Node Browser - Parent");
                             var cherrySlot = prsSlot != null ? prsSlot.AddSlot("Cherry Node Browser") : 
                                 slot_two.AddSlot("Cherry Node Browser - Parent").AddSlot("Cherry Node Browser");
+                            var currentSelecter = slot_two.GetComponentInChildren<ComponentSelector>();
 
                             ComponentSelector componentSelector = cherrySlot.AttachComponent<ComponentSelector>();
-
                             componentSelector.SetupUI("ProtoFlux.UI.NodeBrowser.Title".AsLocaleKey(), ComponentSelector.DEFAULT_SIZE);
                             componentSelector.BuildUI(ProtoFluxHelper.PROTOFLUX_ROOT, doNotGenerateBack: true);
-                            var currentSelecter = slot_two.GetComponentInChildren<ComponentSelector>();
                             componentSelector.ComponentSelected.Target = currentSelecter.ComponentSelected.Target;
                             componentSelector.ComponentFilter.Target = currentSelecter.ComponentFilter.Target;
                             componentSelector.GenericArgumentPrefiller.Target = currentSelecter.GenericArgumentPrefiller.Target;
