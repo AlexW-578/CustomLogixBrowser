@@ -14,7 +14,7 @@ namespace CustomProtofluxBrowser
     public class CustomProtofluxBrowser : ResoniteMod
     {
         public override string Name => "CustomProtofluxBrowser";
-        public override string Author => "AlexW-578 & Sinduy";
+        public override string Author => "AlexW-578";
         public override string Version => "2.1.2";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
