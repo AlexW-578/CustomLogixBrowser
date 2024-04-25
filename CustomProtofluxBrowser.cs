@@ -7,6 +7,7 @@ using FrooxEngine.ProtoFlux;
 using HarmonyLib;
 using ResoniteModLoader;
 using SpecialItemsLib;
+using static OfficialAssets.Graphics.Badges.MMC;
 
 namespace CustomProtofluxBrowser
 {
@@ -14,7 +15,7 @@ namespace CustomProtofluxBrowser
     {
         public override string Name => "CustomProtofluxBrowser";
         public override string Author => "AlexW-578";
-        public override string Version => "2.1.1";
+        public override string Version => "2.1.2";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
         private static ModConfiguration Config;
@@ -22,6 +23,7 @@ namespace CustomProtofluxBrowser
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 1f);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CharryPick = new ModConfigurationKey<bool>("CherryPick", "Enable CherryPick compatibility", () => true);
         private static string PROTOFLUX_BROWSER_TAG
         {
             get { return "custom_protoflux_browser"; }
@@ -77,11 +79,47 @@ namespace CustomProtofluxBrowser
                     {
                         slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
+                    if (Config.GetValue(CharryPick) && Harmony.HasAnyPatches("net.Cyro.CherryPick"))
+                    {
+                        try
+                        {
+                            var prsSlot = slot_two.FindChild("Cherry Node Browser - Parent");
+                            var cherrySlot = prsSlot != null ? prsSlot.AddSlot("Cherry Node Browser") : 
+                                slot_two.AddSlot("Cherry Node Browser - Parent").AddSlot("Cherry Node Browser");
+                            var currentSelecter = slot_two.GetComponentInChildren<ComponentSelector>();
+
+                            ComponentSelector componentSelector = cherrySlot.AttachComponent<ComponentSelector>();
+                            componentSelector.SetupUI("ProtoFlux.UI.NodeBrowser.Title".AsLocaleKey(), ComponentSelector.DEFAULT_SIZE);
+                            componentSelector.BuildUI(ProtoFluxHelper.PROTOFLUX_ROOT, doNotGenerateBack: true);
+                            componentSelector.ComponentSelected.Target = currentSelecter.ComponentSelected.Target;
+                            componentSelector.ComponentFilter.Target = currentSelecter.ComponentFilter.Target;
+                            componentSelector.GenericArgumentPrefiller.Target = currentSelecter.GenericArgumentPrefiller.Target;
+
+                            cherrySlot.PersistentSelf = false;
+                            List<Grabbable> components = new List<Grabbable>();
+                            cherrySlot.GetComponents(components);
+                            foreach (Grabbable grabbable in components)
+                            {
+                                grabbable.Enabled = false;
+                            }
+                            if(cherrySlot.GetComponent<Grabbable>() == null)
+                            {
+                                cherrySlot.AttachComponent<Grabbable>();
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug("CherryPick compatibility failed: ");
+                            UniLog.Error(e.ToString());
+                        }
+                    }
                 });
 
                 __instance.ActiveHandler?.CloseContextMenu();
                 return false;
             }
+
         }
     }
 }
