@@ -20,10 +20,10 @@ namespace CustomProtofluxBrowser
 
         private static ModConfiguration Config;
 
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => Harmony.HasAnyPatches("net.Cyro.CherryPick"));
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 1f);
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CharryPick = new ModConfigurationKey<bool>("CherryPick", "Enable CherryPick compatibility", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CharryPick = new ModConfigurationKey<bool>("CherryPick", "Enable CherryPick or ComponentSelectorAdditions compatibility", () => Harmony.HasAnyPatches("net.Cyro.CherryPick"));
         private static string PROTOFLUX_BROWSER_TAG
         {
             get { return "custom_protoflux_browser"; }
