@@ -13,6 +13,8 @@ Link to Folder containing some custom browsers:
 
 `resrec:///U-Sinduy/R-554A1DA6B5B5E8075EC0B735EE020F6CA823B3D1A778C53231065E8BB840A07B` - ProtoFlux Browser with CherryPicks (by Sinduy)
 
+`resrec:///U-Sinduy/R-B32A6949238C5E90B125DB45B37402E3DBD5E25854D7587876C45A69DD9A64A8` - ProtoFlux Browser for ComponentSelectorAdditions (by Sinduy)
+
 If you would like your browser in the folder send a message/issue.
 
 
