@@ -15,12 +15,12 @@ namespace CustomProtofluxBrowser
     {
         public override string Name => "CustomProtofluxBrowser";
         public override string Author => "AlexW-578";
-        public override string Version => "2.1.2";
+        public override string Version => "2.1.3";
         public override string Link => "https://github.com/AlexW-578/CustomProtofluxBrowser";
 
         private static ModConfiguration Config;
 
-        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => true);
+        [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> Enabled = new ModConfigurationKey<bool>("Enabled", "Enables the mod", () => Harmony.HasAnyPatches("net.Cyro.CherryPick"));
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> UserScale = new ModConfigurationKey<bool>("User scale", "Adjust browser scale to user scale", () => true);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> Scale = new ModConfigurationKey<float>("Scale", "Browser size or scale relative to the user when user scale is on", () => 1f);
         [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> CharryPick = new ModConfigurationKey<bool>("CherryPick", "Enable CherryPick compatibility", () => true);
@@ -79,7 +79,7 @@ namespace CustomProtofluxBrowser
                     {
                         slot_two.GlobalScale = float3.One * Config.GetValue(Scale);
                     }
-                    if (Config.GetValue(CharryPick) && Harmony.HasAnyPatches("net.Cyro.CherryPick"))
+                    if (Config.GetValue(CharryPick))
                     {
                         try
                         {
