@@ -1,6 +1,7 @@
 # CustomProtofluxBrowser
 A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that allows you to use a custom protoflux browser instead of the default one.<br>
 To use, save a protoflux browser to your inventory and then 'favorite' it<br>
+If you want use with Enable CherryPick or ComponentSelectorAdditions you will need to config value `CherryPick` set `true`<br>
 
 <b>This mod requires [SpecialItemsLib](https://github.com/art0007i/SpecialItemsLib) to work</b>
 
@@ -12,6 +13,8 @@ Link to Folder containing some custom browsers:
 `resdb:///d4573a54d40473fc85497549e513f47f4d2ed7f2798f8121dc34cd5bfc5c0e97.brson` - ProtoFlux Browser 'Neos' Edition (by Nuka)
 
 `resrec:///U-Sinduy/R-554A1DA6B5B5E8075EC0B735EE020F6CA823B3D1A778C53231065E8BB840A07B` - ProtoFlux Browser with CherryPicks (by Sinduy)
+
+`resrec:///U-Sinduy/R-B32A6949238C5E90B125DB45B37402E3DBD5E25854D7587876C45A69DD9A64A8` - ProtoFlux Browser for ComponentSelectorAdditions (by Sinduy)
 
 If you would like your browser in the folder send a message/issue.
 
