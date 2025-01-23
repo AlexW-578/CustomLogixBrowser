@@ -35,7 +35,7 @@ namespace CustomProtofluxBrowser
         {
             Config = GetConfiguration();
             Config.Save(true);
-            Harmony harmony = new Harmony("co.uk.alexw-578.CustomProtofluxBrowser");
+            Harmony harmony = new Harmony("co.uk.AlexW-578.CustomProtofluxBrowser");
             protofluxBrowserObject = SpecialItemsLib.SpecialItemsLib.RegisterItem(PROTOFLUX_BROWSER_TAG, "Protoflux Browser");
             harmony.PatchAll();
         }
